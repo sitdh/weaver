@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
+import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,16 +14,31 @@ public class ClassFileSourceTest {
 	
 	private ClassFileSource source;
 	
-	private final String TEMPOLARY_LOCATION = "/tmp";
-	private final String DIRECTORY_LOCATION = "/Users/sitdh/Documents/workspace/weaver/target";
-	private final String FILE_LOCATION = DIRECTORY_LOCATION + "/classes/com/sitdh/analyzer/source/AnalyzedSource.class";
+	private String TEMPOLARY_LOCATION = "/tmp";
+	private String DIRECTORY_LOCATION = "/Users/sitdh/Documents/workspace/weaver/target";
+	private String FILE_LOCATION = DIRECTORY_LOCATION + "/classes/com/sitdh/analyzer/source/AnalyzedSource.class";
 
 	@Before
 	public void setUp() throws Exception {
+		ClassLoader cl = getClass().getClassLoader();
+		
+		String resourceLocation = new File(new File(cl.getResource(".").getFile()).getParent()).getParent();
+		
+		resourceLocation += "/src/test/resources";
+		
+		TEMPOLARY_LOCATION = FileUtils.getTempDirectoryPath();
+		DIRECTORY_LOCATION = resourceLocation;
+		FILE_LOCATION = DIRECTORY_LOCATION + "/lib/com/Hello.class";
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		
+	}
+	
+	@Test
+	public void resourceFileShouldBeGet()  {
+		assertTrue(DIRECTORY_LOCATION.endsWith("/src/test/resources"));
 	}
 	
 	@Test
@@ -37,7 +53,7 @@ public class ClassFileSourceTest {
 	@Test
 	public void sourceShouldBeReadClassFolder() {
 		source = new ClassFileSource(DIRECTORY_LOCATION);
-		assertTrue(0 < source.listClasses().get().size());
+		assertEquals(2, source.listClasses().get().size());
 	}
 	
 	@Test
