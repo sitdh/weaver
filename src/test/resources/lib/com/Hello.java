@@ -1,4 +1,4 @@
-package com;
+package lib.com;
 
 public class Hello {
   public static void main(String[] args) {

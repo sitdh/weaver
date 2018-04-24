@@ -1,4 +1,4 @@
-package com.sitdh;
+package lib.com.sitdh;
 
 public class Greeting {
 
