@@ -2,14 +2,14 @@ package lib.com.sitdh;
 
 public class Greeting {
 
-  private String name;
+  private String hi;
 
-  public Greeting(String name) {
-    this.name = name;
+  public Greeting(String hi) {
+    this.hi = hi;
   }
 
   public String toString() {
-    return this.name;
+    return String.format("Hello, %s", hi);
   }
 
 }
